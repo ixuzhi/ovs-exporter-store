@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/leannetworking/ovs-exporter/ovs"
 	"github.com/prometheus/client_golang/prometheus"
+	"ovs/ovs"
 )
 
 type OvsPromCollector struct {
