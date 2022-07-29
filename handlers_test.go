@@ -352,9 +352,8 @@ groupBucketBytes{groupId="1012",groupType="select",bucketActions="set_field:10.2
 `
 
 func TestGetMetrics(t *testing.T) {
-	ofReader = ofdummy{}
 	w := httptest.NewRecorder()
-	GetMetrics(w, httptest.NewRequest("GET", "http://localhost:1234/flows?target=127.0.0.1", nil))
+	handler(w, httptest.NewRequest("GET", "http://localhost:1234/flows?target=127.0.0.1", nil))
 	resp := w.Result()
 	raw_body, _ := ioutil.ReadAll(resp.Body)
 	body := string(raw_body)

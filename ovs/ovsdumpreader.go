@@ -1,7 +1,6 @@
 package ovs
 
 import (
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -37,7 +36,7 @@ func getRegexpMap(match []string, names []string) map[string]string {
 }
 
 func parseOpenFlowFlowDumpLine(line string) Flow {
-	match := flowLine.FindStringSubmatch(line)
+	match := flowLine.FindStringSubmatch(strings.TrimSuffix(line, "\r"))
 	result := getRegexpMap(match, flowLine.SubexpNames())
 	//TODO: we need to consider if len(result) == 0 is an error or business as usual
 	duration, _ := strconv.ParseFloat(result["duration"], 64)
@@ -164,7 +163,7 @@ func (o OvsDumpReader) Ports(ip string, port int) ([]Port, error) {
 		entry := parseOpenFlowPortDumpLine(lines[i], lines[i+1])
 		entrySet[int(i/2)] = entry
 	}
-	fmt.Println(entrySet)
+	//fmt.Println(entrySet)
 
 	return entrySet, nil
 }
