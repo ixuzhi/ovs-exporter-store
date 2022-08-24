@@ -24,3 +24,8 @@ The code is highly experimental, use it with caution!
 Happy coding :-)
 
 LeanNet
+
+
+## build for arm64 
+GO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o ovs-exporter .
+nohup ovs-exporter
