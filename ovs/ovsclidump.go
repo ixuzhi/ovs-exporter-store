@@ -1,8 +1,8 @@
 package ovs
 
 import (
+	"fmt"
 	"os/exec"
-	"strconv"
 	"strings"
 )
 
@@ -13,6 +13,7 @@ func ovsCtlRun(params ...string) ([]string, error) {
 	out, err := cmd.Output()
 	outString := string(out)
 	//if error was occured we return
+	fmt.Println(outString)
 	if err != nil {
 		return nil, err
 	}
@@ -25,17 +26,17 @@ func ovsCtlRun(params ...string) ([]string, error) {
 }
 
 func (o OvsDumpSourceCLI) DumpFlows(ip string, port int) ([]string, error) {
-	return ovsCtlRun("dump-flows", "tcp:"+ip+":"+strconv.Itoa(port))
+	return ovsCtlRun("dump-flows", "br-int")
 }
 
 func (o OvsDumpSourceCLI) DumpPorts(ip string, port int) ([]string, error) {
-	return ovsCtlRun("dump-ports", "tcp:"+ip+":"+strconv.Itoa(port))
+	return ovsCtlRun("dump-ports", "br-int")
 }
 
 func (o OvsDumpSourceCLI) DumpGroups(ip string, port int) ([]string, error) {
-	return ovsCtlRun("-O", "openflow13", "dump-groups", "tcp:"+ip+":"+strconv.Itoa(port))
+	return ovsCtlRun("-O", "openflow13", "dump-groups", "br-int")
 }
 
 func (o OvsDumpSourceCLI) DumpGroupStats(ip string, port int) ([]string, error) {
-	return ovsCtlRun("-O", "openflow13", "dump-group-stats", "tcp:"+ip+":"+strconv.Itoa(port))
+	return ovsCtlRun("-O", "openflow13", "dump-group-stats", "br-int")
 }

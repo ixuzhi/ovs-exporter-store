@@ -134,7 +134,9 @@ func (c OvsPromCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	for _, entry := range flowEntries {
-
+		if len(entry.Cookie) == 0 {
+			continue
+		}
 		ch <- prometheus.MustNewConstMetric(
 			flowPacketsDesc,
 			prometheus.CounterValue,
